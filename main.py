@@ -1,7 +1,5 @@
-from fabric.api import task, env, run, put, settings, cd, hide, execute
-import fabric
+from fabric.api import task, env, run, put, settings, cd, hide, execute, parallel
 from tools import host_parser, account_generater, account_reader
-from termcolor import colored
 
 
 hosts, passwords = host_parser()
@@ -26,7 +24,7 @@ def install_go():
 
 def initial():
     run('apt update')
-    run('apt install git jq moreutils screen')
+    run('apt install -y git jq moreutils screen')
 
     with settings(warn_only=True):
         result = run('go version')
@@ -41,8 +39,7 @@ def unichain():
         run("make fmt")
         run("make all")
         run("""jq '.allocAccounts[0].pubKey="{}"' build/genesis.json | sponge build/genesis.json""".format(public_key))
-        run(
-            """jq '.config.bootnodes=["fnode://a85ccab0374c60ddea0a63b521ae3f8475100ff4e116090d6798a8618ceea193f5b7deffc14627b2f61bc374336983f6a6c6ed979478590d49906e8ce6041a18@127.0.0.1:2018"]' ../genesis.json | sponge ../genesis.json""")
+        run("""jq '.config.bootnodes=["fnode://a85ccab0374c60ddea0a63b521ae3f8475100ff4e116090d6798a8618ceea193f5b7deffc14627b2f61bc374336983f6a6c6ed979478590d49906e8ce6041a18@127.0.0.1:2018"]' build/genesis.json | sponge build/genesis.json""")
     with cd('~/uni/build/bin'):
         run("touch privateKey.txt")
         run("""echo {} > privateKey.txt""".format(private_key))
@@ -55,6 +52,7 @@ def unichain():
 
 
 @task
+@parallel(pool_size=100)
 def build():
     initial()
     unichain()
