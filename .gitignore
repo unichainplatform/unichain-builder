@@ -1,0 +1,50 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.pyc
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.rar
+#*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.log.[1-9]*
+*.sqlite
+*.sqlite3
+
+# OS generated files #
+######################
+.DS_Store
+ehthumbs.db
+Icon
+Thumbs.db
+.tmtags
+.idea
+tags
+vendor.tags
+tmtagsHistory
+*.sublime-project
+*.sublime-workspace
+.bundle
+/wallet_management/management/commands/MD_USD.json
+/wallet_management/management/commands/CNY_USD.json
+/wallet_management/management/commands/ETH_USD.json
+
+
+wallet_management/management/commands/*.json
+venv
