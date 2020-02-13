@@ -5,7 +5,7 @@ step 1 安装依赖
 首先确保本地有可使用的python3.7+环境
 ```
 // 安装pip（一个python package controller）
-python3 -m pip install --user --upgrade pip
+sudo apt-get -y install python3-pip
 // 安装虚拟环境package
 pip3 install virtualenv
 // 创建虚拟环境
