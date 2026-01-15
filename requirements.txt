@@ -1,4 +1,4 @@
-future==0.16.0
+future==1.0.0
 twisted
 hexbytes
 xlwt
